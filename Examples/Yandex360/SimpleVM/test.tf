@@ -20,7 +20,9 @@ resource "yandex_compute_disk" "boot-disk-1" {
 
 resource "yandex_compute_instance" "vm-1" {
   name = "terraform1"
-  platform_id = "standard-v3"
+
+  // https://yandex.cloud/ru/docs/compute/concepts/vm-platforms
+  platform_id = "standard-v1"
 
   resources {
     cores  = 2
@@ -36,7 +38,8 @@ resource "yandex_compute_instance" "vm-1" {
     subnet_id = yandex_vpc_subnet.subnet-1.id
     nat       = true
   }
-
+  
+  // Прерываемая ВМ
   scheduling_policy {
     preemptible = true
   }

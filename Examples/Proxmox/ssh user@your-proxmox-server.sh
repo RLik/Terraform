@@ -22,7 +22,8 @@ export CLOUD_INIT_IP="dhcp"
 export CLOUD_INIT_NAMESERVER="8.8.8.8"
 export CLOUD_INIT_SEARCHDOMAIN="itproblog.ru"
 
-export TEMPLATE_ID=1001
+#export TEMPLATE_ID=1001
+export TEMPLATE_ID=$(pvesh get /cluster/nextid)
 export VM_NAME="rocky9"
 export VM_DISK_IMAGE="${IMAGES_PATH}/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2"
 
