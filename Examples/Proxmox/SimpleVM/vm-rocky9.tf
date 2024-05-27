@@ -1,5 +1,5 @@
-resource "proxmox_vm_qemu" "cloudinit-test" {
-    name = "terraform-test-vm"
+resource "proxmox_vm_qemu" "rocky9" {
+    name = "Rocky9"
     desc = "A test for using terraform and cloudinit"
 
     # Node name has to be the same name as within the cluster
@@ -9,7 +9,7 @@ resource "proxmox_vm_qemu" "cloudinit-test" {
     # The destination resource pool for the new VM
 
     # The template name to clone this vm from
-    clone = "rocky9-Template"
+    clone = "Rocky9-Template"
 
     # Activate QEMU agent for this VM
     agent = 1
@@ -27,15 +27,15 @@ resource "proxmox_vm_qemu" "cloudinit-test" {
         ide {
             ide3 {
                 cloudinit {
-                    storage = "SSD_NVMe512"
+                    storage = var.storage_name
                 }
             }
         }
-        scsi {
-            scsi0 {
+        virtio {
+            virtio0 {
                 disk {
                     size            = "10740M"
-                    storage         = "SSD_NVMe512"
+                    storage         = var.storage_name
                     replicate       = true
                 }
             }
@@ -49,7 +49,7 @@ resource "proxmox_vm_qemu" "cloudinit-test" {
     }
 
     # Setup the ip address using cloud-init.
-    boot = "order=scsi0"
+    boot = "order=virtio0"
     # Keep in mind to use the CIDR notation for the ip.
     ipconfig0 = "ip=dhcp"
     nameserver = "8.8.8.8"
