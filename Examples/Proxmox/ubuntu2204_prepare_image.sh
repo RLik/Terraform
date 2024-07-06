@@ -9,18 +9,19 @@ apt update
 apt install -y libguestfs-tools
 
 # Install qemu quest agent on Ubuntu 22.04 Cloud Image
-virt-customize --install qemu-guest-agent -a "${IMAGES_PATH}/jammy-server-cloudimg-amd64.img"
-
 export IMAGES_PATH="/mnt/pve/HDD_local" # defines the path where the images will be stored and change the path to it.
 
-cd ${IMAGES_PATH}
+cd $IMAGES_PATH
+
 wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+
+virt-customize --install qemu-guest-agent -a "${IMAGES_PATH}/jammy-server-cloudimg-amd64.img"
 
 export QEMU_CPU_MODEL="host"
 export VM_CPU_CORES=2
 export VM_CPU_SOCKETS=2
 export VM_MEMORY=4098
-export VM_STORAGE_NAME="HDD500"
+export VM_STORAGE_NAME="local-lvm"
 export VM_BRIDGE_NAME="vmbr0"
 
 export CLOUD_INIT_USER="roman"
@@ -31,7 +32,7 @@ export CLOUD_INIT_IP="dhcp"
 export CLOUD_INIT_NAMESERVER="8.8.8.8"
 export CLOUD_INIT_SEARCHDOMAIN="itproblog.ru"
 
-export TEMPLATE_ID=2000
+export TEMPLATE_ID=2001
 #export TEMPLATE_ID=$(pvesh get /cluster/nextid)
 
 export VM_NAME="Ubuntu2204"

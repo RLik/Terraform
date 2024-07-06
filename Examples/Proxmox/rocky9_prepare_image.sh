@@ -13,7 +13,7 @@ export QEMU_CPU_MODEL="host"
 export VM_CPU_CORES=2
 export VM_CPU_SOCKETS=2
 export VM_MEMORY=4098
-export VM_STORAGE_NAME="HDD500"
+export VM_STORAGE_NAME="local-lvm"
 export VM_BRIDGE_NAME="vmbr0"
 
 export CLOUD_INIT_USER="roman"
